@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>js生成二维码（qrcode.js库）</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
     <style>
         #qrcode{
             width: 20vw;
@@ -16,8 +17,12 @@
 <body>
     <div id="qrcode">
     </div>
+    <button onclick="run()">弹幕</button>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
     <script src="./js/qrcode.min.js"></script>
+    <script src="./js/jquery.barrager.js"></script>
     <script>
+        // 二维码生成
         var box = document.getElementById("qrcode")
         console.log(box.clientWidth,box.clientHeight)
         var qrcode = new QRCode(box, {
@@ -28,6 +33,31 @@
             colorLight : "#ffffff", //生成二维码的浅色部分
             correctLevel : QRCode.CorrectLevel.H
         });
+
+        // 弹幕
+        function run(){
+            var item={
+                img:'https://avatars2.githubusercontent.com/u/18045294?s=460&v=4', //图片 
+                info:'弹幕文字信息', //文字 
+                href:'https://github.com/feiyuWeb', //链接 
+                close:true, //显示关闭按钮 
+                speed:8, //延迟,单位秒,默认6 
+                bottom:document.body.clientHeight*Math.random(), //距离底部高度,单位px,默认随机 
+                color:'#fff', //颜色,默认白色 
+                old_ie_color:'#000000', //ie低版兼容色,不能与网页背景相同,默认黑色 
+            }
+            console.log(item)
+            console.log(document.body.clientHeight*Math.random())
+            $("body").barrager(item);
+            return false
+        }
+
+        document.onkeydown=(e)=>{
+            if(e.keyCode===13){
+                run()
+            }
+        }
+
     </script>
 </body>
 </html>
